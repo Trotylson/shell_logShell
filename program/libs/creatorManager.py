@@ -17,5 +17,7 @@ class Manager():
     def getRetypePassword(self, password):
         retype = input('Retypy your password: ')
         if password != retype:
-            return True
-        return False
+            print('Password mismatch!')
+            return False
+        return password
+    

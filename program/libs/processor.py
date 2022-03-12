@@ -1,13 +1,17 @@
 import program.libs.databaseManager as dbManager
 
-# creator = dbManager.Creator()
-
-class Processor:
+class Processor():
     
-    def processNewClient(self, email, login, password):
-        if dbManager.Persistance.checkClient(login):
-           return True
-        return False
+    def checkLogin():
+        pass
+    
+    def processNewClient(email, login, password):
+        client = dbManager.Creator(email, login, password)
+        if client.checkClient():
+            return True
+        client.createCredentials()
+        
+        print('Client created successfully!')
 
 
-# creator.conn.close()
+# dbManager.conn.close()
