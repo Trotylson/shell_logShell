@@ -1,31 +1,36 @@
 import sqlite3
 
-conn = sqlite3.connect(f'./program/database/clients.db')
-cur = conn.cursor()
-cur.execute("create table if not exists credentials (email text, login text, password text)")
-
 class Creator():
-    
+
     def __init__(self, email, login_name, password):
         self.email = email
         self.login_name = login_name
         self.password = password
         
+        self.conn = sqlite3.connect(f'./program/database/clients.db')
+        self.cur = self.conn.cursor()
+        self.cur.execute("create table if not exists credentials (email text, login text, password text)")
+        
     def createCredentials(self):
-        cur.execute(f"insert into credentials values (?, ?, ?)", (self.email, self.login_name, self.password))
-        conn.commit()
+        self.cur.execute(f"insert into credentials values (?, ?, ?)", (self.email, self.login_name, self.password))
+        self.conn.commit()
         
-    def checkClient(self):
-        for data in cur.execute("select * from credentials"):
-            print(data)
-                
-
-class Persistance(Creator):
-        
-    def checkClient(email, login, password):
-        for data in cur.execute("select * from credentials"):
-            print(data)
+    def checkClientEmail(self):
+        for data in self.cur.execute("select email from credentials"):
+            if self.email in data:
+                print(f'{data} email already exists!')
+                return True
+        return False
     
-
-# conn.close()
+    def checkClientLogin(self):
+        for data in self.cur.execute("select login from credentials"):
+            if self.login_name in data:
+                print(f'{data} login already exists!')
+                return True
+        return False
+    
+    def closeDatabase(self):
+        self.conn.close()
+                
+    
         
