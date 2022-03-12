@@ -15,17 +15,10 @@ class Creator():
         self.cur.execute(f"insert into credentials values (?, ?, ?)", (self.email, self.login_name, self.password))
         self.conn.commit()
         
-    def checkClientEmail(self):
-        for data in self.cur.execute("select email from credentials"):
-            if self.email in data:
-                print(f'{data} email already exists!')
-                return True
-        return False
-    
-    def checkClientLogin(self):
-        for data in self.cur.execute("select login from credentials"):
-            if self.login_name in data:
-                print(f'{data} login already exists!')
+    def checkClientData(self, column, value):
+        for data in self.cur.execute(f"select {column} from credentials"):
+            if value in data:
+                print(f'{data} {column} already exists!')
                 return True
         return False
     
@@ -33,4 +26,31 @@ class Creator():
         self.conn.close()
                 
     
+class Logger():
+    
+    def __init__(self, login, password):
+        self.login = login
+        self.password = password
         
+        self.conn = sqlite3.connect(f'./program/database/clients.db')
+        self.cur = self.conn.cursor()
+        
+    def checkClientLogin(self):
+        for data in self.cur.execute("select login from credentials"):
+            if self.login in data:
+                # print(f'{data} login correct!')
+                return True
+        # print(f'login incorrect!')
+        return False
+    
+    def checkClientPassword(self):
+        for data in self.cur.execute("select password from credentials where login = ?", 
+                                     (self.login,)):
+            if self.password in data:
+                # print(f'{data} login correct!')
+                return True
+        # print(f'password incorrect!')
+        return False
+    
+    def closeDatabase(self):
+        self.conn.close()
