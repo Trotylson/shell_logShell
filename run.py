@@ -7,17 +7,14 @@ import program.accessArea.access as access
 _author = 'Trotyl'
 _version = 0.1
 
-cMan = creatorManager.Manager()
-lMan = loginManager.LoginPanel()
-
 service = 'loginService'
 poz_one = 'create account'
 poz_two = 'login'
 poz_three = 'exit'
 
 
-
-
+cMan = creatorManager.Manager()
+lMan = loginManager.LoginPanel()
 
 while True:
     choice = input(
@@ -39,7 +36,6 @@ while True:
         elif choice =='3':
             print('Bye! :)')
             exit()
-        else:    
-            print('Wrong choice, please try again!')
+    else:    
+        print('Wrong choice, please try again!')
     
-exit()
