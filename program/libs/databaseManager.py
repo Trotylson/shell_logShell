@@ -24,6 +24,18 @@ class Creator():
     
     def closeDatabase(self):
         self.conn.close()
+    
+    def processNewClient(self):
+        if self.checkClientData('email', self.email):
+            return False
+        if self.checkClientData('login', self.login_name):
+            return False
+        # if password == False:
+        #     return True
+        self.createCredentials()
+        self.closeDatabase()
+        print('Client created successfully!')
+        return True
                 
     
 class Logger():

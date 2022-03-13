@@ -1,5 +1,6 @@
 import program.libs.creatorManager as creatorManager
 import program.libs.loginManager as loginManager
+import program.libs.databaseManager as dbManager
 import program.libs.processor as processor
 import program.accessArea.access as access
 
@@ -23,7 +24,7 @@ while True:
     if choice == '1' or choice == '2' or choice == '3':
         if choice == '1':
             while True:
-                flag = processor.Processor.processNewClient(cMan.getEmail(), cMan.getLoginName(), cMan.getPassword())
+                flag = dbManager.Creator(cMan.getEmail(), cMan.getLoginName(), cMan.getPassword()).processNewClient()
                 if flag:
                     break
             
