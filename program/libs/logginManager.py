@@ -1,4 +1,4 @@
-
+import getpass
 
 class CreatorManager():
     
@@ -11,7 +11,7 @@ class CreatorManager():
         return email
     
     def getRetypePassword(self, password):
-        retype = input('Retypy your password: ')
+        retype = getpass.getpass('Retype password: ')# input('Retypy your password: ')
         if password != retype:
             print('Password mismatch!')
             return True
@@ -19,7 +19,7 @@ class CreatorManager():
     
     def getPassword(self):
         while True:
-            password = input('Select your password: ')
+            password = getpass.getpass('Select password: ') # input('Select your password: ')
             if self.getRetypePassword(password):
                 pass # print('Password mismatch!')
             else: return password
@@ -32,5 +32,5 @@ class LogginPanel():
         return login
     
     def getPassword(self):
-        password = input('password: ')
+        password = getpass.getpass('password: ')    # input('password: ')
         return password

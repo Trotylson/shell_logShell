@@ -6,7 +6,7 @@ import program.access as access
 _author = 'Trotyl'
 _version = 1.0
 
-service = 'loginService'
+service = 'loggingSystem'
 poz_one = 'create account'
 poz_two = 'login'
 poz_three = 'exit'
@@ -14,9 +14,11 @@ poz_three = 'exit'
 manager = logginManager.CreatorManager()
 panel = logginManager.LogginPanel()
 
+access.access()
+
 while True:
     choice = input(
-        str(f'\n{service} v{_version}\nby {_author}\n\n\t1 - {poz_one}\n\t2 - {poz_two}\n\t3 - {poz_three}\n\nchoice: ')
+        str(f'\n{service}\nver.{_version} by {_author}\n\n\t1 - {poz_one}\n\t2 - {poz_two}\n\t3 - {poz_three}\n\nchoice: ')
         )
     if choice == '1' or choice == '2' or choice == '3':
         if choice == '1':
