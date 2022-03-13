@@ -9,10 +9,15 @@ class Creator():
         
         self.conn = sqlite3.connect(f'./program/database/clients.db')
         self.cur = self.conn.cursor()
-        self.cur.execute("create table if not exists credentials (email text, login text, password text)")
+        self.cur.execute(
+            "create table if not exists credentials (email text, login text, password text)"
+            )
         
     def createCredentials(self):
-        self.cur.execute(f"insert into credentials values (?, ?, ?)", (self.email, self.login_name, self.password))
+        self.cur.execute(
+            f"insert into credentials values (?, ?, ?)", 
+            (self.email, self.login_name, self.password)
+            )
         self.conn.commit()
         
     def checkClientData(self, column, value):
@@ -44,11 +49,14 @@ class Logger():
         self.login = login
         self.password = password
         
-        self.conn = sqlite3.connect(f'./program/database/clients.db')
+        self.conn = sqlite3.connect(
+            f'./program/database/clients.db'
+            )
         self.cur = self.conn.cursor()
         
     def checkClientLogin(self):
-        for data in self.cur.execute("select login from credentials"):
+        for data in self.cur.execute(
+            "select login from credentials"):
             if self.login in data:
                 # print(f'{data} login correct!')
                 return True
@@ -56,8 +64,9 @@ class Logger():
         return False
     
     def checkClientPassword(self):
-        for data in self.cur.execute("select password from credentials where login = ?", 
-                                     (self.login,)):
+        for data in self.cur.execute(
+            "select password from credentials where login = ?", 
+            (self.login,)):
             if self.password in data:
                 # print(f'{data} login correct!')
                 return True
@@ -66,3 +75,26 @@ class Logger():
     
     def closeDatabase(self):
         self.conn.close()
+        
+    def processLogin(self):
+        _log = False
+        _pass = False
+        if self.checkClientLogin():
+            # print('login correct!')
+            _log = True
+        else: print('login incorrect!')    
+        if self.checkClientPassword():
+            # print('password correct!')
+            _pass = True
+        else: print('password incorrect!')
+        if _log and _pass:
+            self.closeDatabase()
+            print('Credentials correct!')
+            return True
+        self.closeDatabase()
+        print('FAIL LOGGING')
+        return False
+    
+    
+class AccountManager():
+    pass

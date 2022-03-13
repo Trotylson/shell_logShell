@@ -1,21 +1,18 @@
-import program.libs.creatorManager as creatorManager
-import program.libs.loginManager as loginManager
-import program.libs.databaseManager as dbManager
-import program.libs.processor as processor
-import program.accessArea.access as access
+import program.libs.logginManager as logginManager
+import program.libs.logginProcessor as processor
+import program.access as access
 
 
 _author = 'Trotyl'
-_version = 0.1
+_version = 1.0
 
 service = 'loginService'
 poz_one = 'create account'
 poz_two = 'login'
 poz_three = 'exit'
 
-
-cMan = creatorManager.Manager()
-lMan = loginManager.LoginPanel()
+manager = logginManager.CreatorManager()
+panel = logginManager.LogginPanel()
 
 while True:
     choice = input(
@@ -24,13 +21,13 @@ while True:
     if choice == '1' or choice == '2' or choice == '3':
         if choice == '1':
             while True:
-                flag = dbManager.Creator(cMan.getEmail(), cMan.getLoginName(), cMan.getPassword()).processNewClient()
+                flag = processor.Creator(manager.getEmail(), manager.getLoginName(), manager.getPassword()).processNewClient()
                 if flag:
                     break
             
         elif choice =='2':
             while True:
-                flag = processor.Processor.processLogin(lMan.getLogin(), lMan.getPassword())
+                flag = processor.Logger(panel.getLogin(), panel.getPassword()).processLogin()
                 if flag:
                     access.access()
                     break

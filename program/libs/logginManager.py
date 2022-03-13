@@ -1,6 +1,6 @@
 
 
-class Manager():
+class CreatorManager():
     
     def getLoginName(self):
         login_name = input('Select your login: ')
@@ -23,7 +23,14 @@ class Manager():
             if self.getRetypePassword(password):
                 pass # print('Password mismatch!')
             else: return password
-            
+
+
+class LogginPanel():
     
+    def getLogin(self):
+        login = input('login: ')
+        return login
     
-    
+    def getPassword(self):
+        password = input('password: ')
+        return password
