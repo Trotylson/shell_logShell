@@ -10,10 +10,10 @@ author: Trotylson
 python ver.: 3.10.2
 #
 
-
+Descryption:
 Tool / system for logging in and creating in-service accounts.
 
-#
+# UPDATES:
 
     UPDATE 14-03-2022 v.1.0
     
