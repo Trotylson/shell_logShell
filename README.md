@@ -16,7 +16,7 @@ Tool / system for logging in and creating in-service accounts.
 
 # UPDATES:
 
-    UPDATE 14-03-2022 v.1.0
+    UPDATE 14-03-2022 v.1.1
     
     Mailing system library added - now system can send emails with the verification code to create an account.
     Soon it will be possible to verify via email
