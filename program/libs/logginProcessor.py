@@ -1,4 +1,6 @@
 import sqlite3
+import program.libs.mailer as mailer
+
 
 class Creator():
 
@@ -82,11 +84,14 @@ class Logger():
         if self.checkClientLogin():
             # print('login correct!')
             _log = True
-        else: print('login incorrect!')    
+        else: 
+            print('login incorrect!')
+            return False
         if self.checkClientPassword():
             # print('password correct!')
             _pass = True
-        else: print('password incorrect!')
+        else: 
+            print('password incorrect!')
         if _log and _pass:
             self.closeDatabase()
             print('Credentials correct!')

@@ -1,6 +1,6 @@
 import program.libs.logginManager as logginManager
 import program.libs.logginProcessor as processor
-import program.access as access
+import program.logo as logo
 
 _author = 'Trotyl'
 _version = 1.0
@@ -13,7 +13,7 @@ poz_three = 'exit'
 manager = logginManager.CreatorManager()
 panel = logginManager.LogginPanel()
 
-access.access()
+logo.access()
 
 while True:
     choice = input(
@@ -30,7 +30,7 @@ while True:
             while True:
                 flag = processor.Logger(panel.getLogin(), panel.getPassword()).processLogin()
                 if flag:
-                    access.access()
+                    logo.access()
                     break
         elif choice =='3':
             print('Bye! :)')
