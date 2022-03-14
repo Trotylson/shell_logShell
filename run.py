@@ -2,7 +2,6 @@ import program.libs.logginManager as logginManager
 import program.libs.logginProcessor as processor
 import program.access as access
 
-
 _author = 'Trotyl'
 _version = 1.0
 

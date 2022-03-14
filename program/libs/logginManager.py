@@ -1,4 +1,5 @@
 import getpass
+import program.libs.coder as coder
 
 class CreatorManager():
     
@@ -22,7 +23,7 @@ class CreatorManager():
             password = getpass.getpass('Select password: ') # input('Select your password: ')
             if self.getRetypePassword(password):
                 pass # print('Password mismatch!')
-            else: return password
+            else: return coder.Crypto(password).encode()
 
 
 class LogginPanel():
@@ -33,4 +34,4 @@ class LogginPanel():
     
     def getPassword(self):
         password = getpass.getpass('password: ')    # input('password: ')
-        return password
+        return coder.Crypto(password).encode()
