@@ -50,7 +50,7 @@ class Creator():
         return False
                 
     
-class Logger():
+class Loger():
     
     def __init__(self, login, password):
         self.login = login

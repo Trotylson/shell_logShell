@@ -1,9 +1,18 @@
-This is the loggingSystem.
+#
+0000                                  000000000                                       
+0000     0000000000 000000000         0000      0000   000 000000000 0000     0000    
+0000     0000000000 0000              000000000 0000   000 0000      0000     0000    
+0000     0000   000 0000  000  00000  000000000 0000000000 00000000  0000     0000    
+00000000 0000   000 0000   00  00000       0000 0000000000 0000      00000000 00000000
+00000000 0000000000 000000000         000000000 0000   000 000000000 00000000 00000000
+
+This is the LogShell.
+#
 
 # Software under development!
 
 #
-version: v1.0
+version: v.1.2.1
 
 author: Trotylson
 
@@ -12,13 +21,16 @@ python ver.: 3.9.10
 
 Descryption:
 
-Tool / system for logging in and creating in-service accounts.
+Protective shell that will prevent access to your software.
+
+Standard access: admin / admin
 
 # UPDATES:
 
     UPDATE 15-03-2021 v.1.2
 
-    Now, to create a new account, verification with the code sent to the email address provided during registration is required.
+    Now, to create a new account, verification with the code sent to the email 
+    address provided during registration is required.
 
     The first time you start the program, you can use basic credentials:
 

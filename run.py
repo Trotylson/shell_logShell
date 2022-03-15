@@ -1,21 +1,23 @@
-import program.libs.logginManager as logginManager
-import program.libs.logginProcessor as processor
+import program.libs.loginManager as loginManager
+import program.libs.loginProcessor as processor
 import program.logo as logo
+import program.libs.devTools as console
 
 _author = 'Trotyl'
-_version = 1.0
+_version = '1.2.1'
 
-service = 'loggingSystem'
+service = 'LogShell'
 poz_one = 'create account'
 poz_two = 'login'
 poz_three = 'exit'
 
-manager = logginManager.CreatorManager()
-panel = logginManager.LogginPanel()
+manager = loginManager.CreatorManager()
+panel = loginManager.LogginPanel()
 
-logo.access()
 
 while True:
+    console.clear()
+    logo.logo()
     choice = input(
         str(f'\n{service}\nver.{_version} by {_author}\n\n\t1 - {poz_one}\n\t2 - {poz_two}\n\t3 - {poz_three}\n\nchoice: ')
         )
@@ -28,9 +30,9 @@ while True:
             
         elif choice =='2':
             while True:
-                flag = processor.Logger(panel.getLogin(), panel.getPassword()).processLogin()
+                flag = processor.Loger(panel.getLogin(), panel.getPassword()).processLogin()
                 if flag:
-                    logo.access()
+                    # inside menu
                     break
         elif choice =='3':
             print('Bye! :)')
