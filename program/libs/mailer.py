@@ -36,7 +36,7 @@ class Sender():
             smtp_server.login(self._sender, self._pass)
             smtp_server.sendmail(self._from, self._reciver, email_text)
             smtp_server.close()
-            print ("Email sent successfully!")
+            print ("Email sent successfully!\nPlease find email with key code in your box to verify your account.")
         except Exception as ex:
             print ("Something went wrong….",ex)
         

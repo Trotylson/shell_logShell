@@ -1,5 +1,6 @@
 import sqlite3
 import program.libs.mailer as mailer
+import program.libs.activeKeyRandomizer as key
 
 
 class Creator():
@@ -13,7 +14,7 @@ class Creator():
         self.cur = self.conn.cursor()
         self.cur.execute(
             "create table if not exists credentials (email text, login text, password text)"
-            )
+            )        
         
     def createCredentials(self):
         self.cur.execute(
@@ -37,12 +38,16 @@ class Creator():
             return False
         if self.checkClientData('login', self.login_name):
             return False
-        # if password == False:
-        #     return True
-        self.createCredentials()
-        self.closeDatabase()
-        print('Client created successfully!')
-        return True
+        
+        activeKey = key.Randomizer()
+        mailer.Sender(self.email, activeKey.generateKay()).send()
+        if activeKey.keyApprove(input('CODE: ')):
+            self.createCredentials()
+            self.closeDatabase()
+            print('Client created successfully!')
+            return True
+        print('\nSomething went wrong!\nDid you provide the correct verification code?\n')
+        return False
                 
     
 class Logger():
@@ -50,11 +55,26 @@ class Logger():
     def __init__(self, login, password):
         self.login = login
         self.password = password
+        self.list = []
         
         self.conn = sqlite3.connect(
             f'./program/database/clients.db'
             )
         self.cur = self.conn.cursor()
+        
+        self.cur.execute(
+            "create table if not exists credentials (email text, login text, password text)"
+            )
+             
+        for admin in self.cur.execute(
+            "select login from credentials"):
+            self.list.extend(admin)
+        if 'admin' not in self.list:
+            self.cur.execute(
+            "insert into credentials values (?, ?, ?)", 
+            ('yourEmail@gmail.com', 'admin', 'Z=u^9iN&5H')
+            )
+        self.conn.commit() # Z=u^9iN&5H
         
     def checkClientLogin(self):
         for data in self.cur.execute(

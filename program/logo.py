@@ -9,4 +9,4 @@ def access():
         '0000000 000000000 000000000 000000000 000000000   000     000000000\n'
         '                                                 000\n'
         
-        'You are in system! :)\n')
+        'Login shell activated! :)\n')
