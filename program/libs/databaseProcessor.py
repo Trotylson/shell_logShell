@@ -1,25 +1,38 @@
 import sqlite3
 import program.libs.mailer as mailer
 import program.libs.activeKeyRandomizer as key
+import time
 
 
-class Creator():
+class AccountManager():
 
-    def __init__(self, email, login_name, password):
+    def __init__(self, email=None, login=None, password=None):
         self.email = email
-        self.login_name = login_name
+        self.login = login
         self.password = password
+        
+        self.list = []
         
         self.conn = sqlite3.connect(f'./program/database/clients.db')
         self.cur = self.conn.cursor()
         self.cur.execute(
             "create table if not exists credentials (email text, login text, password text)"
-            )        
+            )
+        
+        for admin in self.cur.execute(
+            "select login from credentials"):
+            self.list.extend(admin)
+        if 'admin' not in self.list:
+            self.cur.execute(
+            "insert into credentials values (?, ?, ?)", 
+            ('yourEmail@gmail.com', 'admin', 'Z=u^9iN&5H')
+            )
+        self.conn.commit() # Z=u^9iN&5H     
         
     def createCredentials(self):
         self.cur.execute(
             f"insert into credentials values (?, ?, ?)", 
-            (self.email, self.login_name, self.password)
+            (self.email, self.login, self.password)
             )
         self.conn.commit()
         
@@ -36,46 +49,21 @@ class Creator():
     def processNewClient(self):
         if self.checkClientData('email', self.email):
             return False
-        if self.checkClientData('login', self.login_name):
+        if self.checkClientData('login', self.login):
             return False
         
         activeKey = key.Randomizer()
-        mailer.Sender(self.email, activeKey.generateKay()).send()
-        if activeKey.keyApprove(input('CODE: ')):
-            self.createCredentials()
-            self.closeDatabase()
-            print('Client created successfully!')
-            return True
+        if mailer.Sender(self.email, activeKey.generateKay()).send():
+            if activeKey.keyApprove(input('CODE: ')):
+                self.createCredentials()
+                self.closeDatabase()
+                print('Client created successfully!')
+                time.sleep(2)
+                return True
         print('\nSomething went wrong!\nDid you provide the correct verification code?\n')
-        return False
-                
+        time.sleep(5)
+        return True
     
-class Loger():
-    
-    def __init__(self, login, password):
-        self.login = login
-        self.password = password
-        self.list = []
-        
-        self.conn = sqlite3.connect(
-            f'./program/database/clients.db'
-            )
-        self.cur = self.conn.cursor()
-        
-        self.cur.execute(
-            "create table if not exists credentials (email text, login text, password text)"
-            )
-             
-        for admin in self.cur.execute(
-            "select login from credentials"):
-            self.list.extend(admin)
-        if 'admin' not in self.list:
-            self.cur.execute(
-            "insert into credentials values (?, ?, ?)", 
-            ('yourEmail@gmail.com', 'admin', 'Z=u^9iN&5H')
-            )
-        self.conn.commit() # Z=u^9iN&5H
-        
     def checkClientLogin(self):
         for data in self.cur.execute(
             "select login from credentials"):
@@ -119,7 +107,6 @@ class Loger():
         self.closeDatabase()
         print('FAIL LOGGING')
         return False
+                
     
     
-class AccountManager():
-    pass
