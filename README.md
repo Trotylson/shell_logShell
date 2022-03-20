@@ -23,9 +23,11 @@ Descryption:
 
 Protective shell that will prevent access to your software.
 
-Standard access: admin / admin
+    Standard admin access: admin / admin
 
-                 test / 
+    Standard user access: test / 
+    
+#
 
 # UPDATES:
 
