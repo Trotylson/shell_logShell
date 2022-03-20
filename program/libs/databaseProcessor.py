@@ -2,6 +2,7 @@ import sqlite3
 import program.libs.mailer as mailer
 import program.libs.activeKeyRandomizer as key
 import time
+import json
 
 
 class AccountManager():
@@ -16,7 +17,7 @@ class AccountManager():
         self.conn = sqlite3.connect(f'./program/database/clients.db')
         self.cur = self.conn.cursor()
         self.cur.execute(
-            "create table if not exists credentials (email text, login text, password text)"
+            "create table if not exists credentials (role text, email text, login text, password text)"
             )
         
         for admin in self.cur.execute(
@@ -24,15 +25,20 @@ class AccountManager():
             self.list.extend(admin)
         if 'admin' not in self.list:
             self.cur.execute(
-            "insert into credentials values (?, ?, ?)", 
-            ('yourEmail@gmail.com', 'admin', 'Z=u^9iN&5H')
+            "insert into credentials values (?, ?, ?, ?)", 
+            ('admin', 'yourEmail@gmail.com', 'admin', 'Z=u^9iN&5H')
+            )
+        if 'test' not in self.list:
+            self.cur.execute(
+            "insert into credentials values (?, ?, ?, ?)", 
+            ('user', 'test@gmail.com', 'test', '')
             )
         self.conn.commit() # Z=u^9iN&5H     
         
     def createCredentials(self):
         self.cur.execute(
-            f"insert into credentials values (?, ?, ?)", 
-            (self.email, self.login, self.password)
+            f"insert into credentials values (?, ?, ?, ?)", 
+            ('user', self.email, self.login, self.password)
             )
         self.conn.commit()
         
@@ -82,6 +88,14 @@ class AccountManager():
                 return True
         # print(f'password incorrect!')
         return False
+    
+    def defineRank(self, user):
+        for x in self.cur.execute("select role from credentials where login = ?",(user,)):
+            return json.dumps(x)
+        
+    def deleteAccount(self):
+        self.cur.execute("delete from credentials where login = ?",(self.login,))
+        self.conn.commit()
     
     def closeDatabase(self):
         self.conn.close()

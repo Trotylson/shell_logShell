@@ -35,3 +35,9 @@ class LogginPanel():
     def getPassword(self):
         password = getpass.getpass('password: ')    # input('password: ')
         return coder.Crypto(password).encode()
+    
+    def deleteAccount(self):
+        ask = input('Do you want to delete this account? [y / n]: ').lower()
+        if ask == 'yes' or ask == 'y':
+            return True
+        return False

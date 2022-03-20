@@ -25,7 +25,27 @@ Protective shell that will prevent access to your software.
 
 Standard access: admin / admin
 
+                 test / 
+
 # UPDATES:
+
+    UPDATE 20-03-2021 v.1.2.1
+
+    Moved account creation inside the shell. Account deletion has been added.
+    The next update will bring a separate admin panel with user account manipulation features.
+
+    The first time you start the program, you can use basic credentials:
+
+    login: admin
+    password: admin
+
+    or
+
+    login: test
+    password: 
+
+    ...even if you drop or delete database :)
+#
 
     UPDATE 15-03-2021 v.1.2
 
