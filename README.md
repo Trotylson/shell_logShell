@@ -31,7 +31,7 @@ Protective shell that will prevent access to your software.
 
 # UPDATES:
 
-    UPDATE 20-03-2021 v.1.2.1
+    UPDATE 20-03-2022 v.1.2.1
 
     Moved account creation inside the shell. Account deletion has been added.
     The next update will bring a separate admin panel with user account manipulation features.
@@ -49,7 +49,7 @@ Protective shell that will prevent access to your software.
     ...even if you drop or delete database :)
 #
 
-    UPDATE 15-03-2021 v.1.2
+    UPDATE 15-03-2022 v.1.2
 
     Now, to create a new account, verification with the code sent to the email 
     address provided during registration is required.
