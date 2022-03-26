@@ -91,7 +91,7 @@ class AccountManager():
     
     def defineRank(self, user):
         for x in self.cur.execute("select role from credentials where login = ?",(user,)):
-            return json.dumps(x)
+            return x[0]
         
     def deleteAccount(self):
         self.cur.execute("delete from credentials where login = ?",(self.login,))
