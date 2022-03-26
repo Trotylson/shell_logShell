@@ -51,64 +51,49 @@ class ShellMenu():
         self._edit = 'edit account'
         self._delete = 'delete account'
         self._logout = 'logout'
+        self._admin = 'admin panel'
         _rank = processor.AccountManager().defineRank(user)
 
         while True:
             console.clear()
             logo.logo()
-            print(_rank)
-            if _rank == 'admin':
-                choice = input(
+            
+            choice = input(
                 str(f'\n{service}\nver.{_version} by {_author}\n\nlogin as: {user} {_rank}\n\n'
                     f'\t1 - {self._create}\n'
-                    f'\t2 - {self._edit}\n'
-                    f'\t3 - {self._delete}\n'
-                    f'\t6 - {self._logout}\n'
-                    f'\nchoice: ')
-                    )
-                if choice == '1' or choice == '2' or choice == '3' or choice == '4' or choice == '5' or choice == '6':
-                    if choice == '1':
-                        while True:
-                            flag = processor.AccountManager(
-                                email = manager.getEmail(), login = manager.getLoginName(), password = manager.getPassword()
-                                ).processNewClient()
-                            if flag:
-                                break
-                    if choice == '2':
-                        print('edit 2')
-                    if choice == '3':
-                        print('delete 3')
-                    if choice == '4':
-                        print('function 4')
-                    if choice == '5':
-                        print('function 5')
-                    if choice == '6':
-                        break
-                else: print('unknown choice'), time.sleep(2)
-            
-            else:
-                choice = input(
-                    str(f'\n{service}\nver.{_version} by {_author}\n\nlogin as: {user} {_rank}\n\n\t1 - {self._create}\n\t2 - {self._delete}\n\t3 - {self._logout}\n\nchoice: ')
-                    )
-                if choice == '1' or choice == '2' or choice == '3':
-                    if choice == '1':
-                        while True:
-                            flag = processor.AccountManager(
-                                email = manager.getEmail(), 
-                                login = manager.getLoginName(), 
-                                password = manager.getPassword()
-                                ).processNewClient()
-                            if flag:
-                                break
-                    elif choice == '2':
-                        if panel.deleteAccount():
-                            processor.AccountManager(login=user).deleteAccount()
-                            print('Account deleted...')
-                            time.sleep(2)
+                    f'\t2 - {self._delete}\n'
+                    f'\t3 - {self._admin}\n'
+                    f'\tx - {self._logout}\n'
+                    f'\nchoice: ').lower()
+                )
+            if choice == '1' or choice == '2' or choice == '3' or choice == 'x':
+                if choice == '1':
+                    while True:
+                        flag = processor.AccountManager(
+                            email = manager.getEmail(), login = manager.getLoginName(), password = manager.getPassword()
+                            ).processNewClient()
+                        if flag:
                             break
-                        print('Account still in use')
+                elif choice == '2':
+                    if panel.deleteAccount():
+                        processor.AccountManager(login=user).deleteAccount()
+                        print('Account deleted...')
                         time.sleep(2)
-                    elif choice == '3':
                         break
-                else:    
-                    print('Wrong choice, please try again!')
+                    print('Account still in use')
+                    time.sleep(2)
+                elif choice == '3':
+                    if _rank == 'admin': AdminPanel()
+                    else: 
+                        print(f'User rang: {user}:{_rank} - permissions too low!')
+                        time.sleep(2)
+                elif choice == 'x':
+                    break
+            else:    
+                print('Wrong choice, please try again!')
+                
+class AdminPanel():
+    
+    def __init__(self):
+        print('Admin panel')
+        time.sleep(2)
